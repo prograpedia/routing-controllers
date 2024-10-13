@@ -1,0 +1,25 @@
+name: Publish
+on:
+  push:
+    branches:
+      - deno-v0.10.4
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2.0.0
+
+      - name: Install dependencies
+        run: deno install
+
+      - name: Publish package
+        run: npx jsr publish
