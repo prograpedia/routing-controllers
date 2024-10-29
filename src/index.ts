@@ -114,7 +114,7 @@ export function getMetadataArgsStorage(): MetadataArgsStorage {
 /**
  * Registers all loaded actions in your express application.
  */
-export async function useExpressServer<T>(expressServer: T, options?: RoutingControllersOptions): T {
+export async function useExpressServer<T>(expressServer: T, options?: RoutingControllersOptions): Promise<T> {
   const driver = new ExpressDriver(expressServer);
   return await createServer(driver, options);
 }
@@ -122,7 +122,7 @@ export async function useExpressServer<T>(expressServer: T, options?: RoutingCon
 /**
  * Registers all loaded actions in your express application.
  */
-export async function createExpressServer(options?: RoutingControllersOptions): any {
+export async function createExpressServer(options?: RoutingControllersOptions): Promise<any> {
   const driver = new ExpressDriver();
   return await createServer(driver, options);
 }
@@ -130,7 +130,7 @@ export async function createExpressServer(options?: RoutingControllersOptions): 
 /**
  * Registers all loaded actions in your koa application.
  */
-export async function useKoaServer<T>(koaApp: T, options?: RoutingControllersOptions): T {
+export async function useKoaServer<T>(koaApp: T, options?: RoutingControllersOptions): Promise<T> {
   const driver = new KoaDriver(koaApp);
   return await createServer(driver, options);
 }
@@ -138,7 +138,7 @@ export async function useKoaServer<T>(koaApp: T, options?: RoutingControllersOpt
 /**
  * Registers all loaded actions in your koa application.
  */
-export async function createKoaServer(options?: RoutingControllersOptions): any {
+export async function createKoaServer(options?: RoutingControllersOptions): Promise<any> {
   const driver = new KoaDriver();
   return await createServer(driver, options);
 }
@@ -146,7 +146,7 @@ export async function createKoaServer(options?: RoutingControllersOptions): any 
 /**
  * Registers all loaded actions in your application using selected driver.
  */
-export async function createServer<T extends BaseDriver>(driver: T, options?: RoutingControllersOptions): any {
+export async function createServer<T extends BaseDriver>(driver: T, options?: RoutingControllersOptions): Promise<any> {
   createExecutor(driver, options);
   return await driver.app;
 }
@@ -154,7 +154,7 @@ export async function createServer<T extends BaseDriver>(driver: T, options?: Ro
 /**
  * Registers all loaded actions in your express application.
  */
-export async function createExecutor<T extends BaseDriver>(driver: T, options: RoutingControllersOptions = {}): void {
+export async function createExecutor<T extends BaseDriver>(driver: T, options: RoutingControllersOptions = {}): Promise<void> {
   // import all controllers and middlewares and error handlers (new way)
   let controllerClasses: Function[];
   if (options && options.controllers && options.controllers.length) {
