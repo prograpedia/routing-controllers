@@ -1,10 +1,10 @@
 import * as path from 'path';
-const glob = await import('glob');
 
 /**
  * Loads all exported classes from the given directory.
  */
 export async function importClassesFromDirectories(directories: string[], formats = ['.js', '.ts', '.tsx']): Function[] {
+  const glob = await import('glob');
   const loadFileClasses = function (exported: any, allLoaded: Function[]) {
     if (exported instanceof Function) {
       allLoaded.push(exported);
