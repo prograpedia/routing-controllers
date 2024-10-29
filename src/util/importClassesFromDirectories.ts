@@ -3,7 +3,7 @@ import * as path from 'path';
 /**
  * Loads all exported classes from the given directory.
  */
-export async function importClassesFromDirectories(directories: string[], formats = ['.js', '.ts', '.tsx']): Function[] {
+export async function importClassesFromDirectories(directories: string[], formats = ['.js', '.ts', '.tsx']): Promise<Function[]> {
   const glob = await import('glob');
   const loadFileClasses = function (exported: any, allLoaded: Function[]) {
     if (exported instanceof Function) {
