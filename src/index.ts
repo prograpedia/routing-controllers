@@ -105,74 +105,74 @@ export * from './driver/koa/KoaDriver';
  * Metadata args storage follows the best practices and stores metadata in a global variable.
  */
 export function getMetadataArgsStorage(): MetadataArgsStorage {
-  if (!(global as any).routingControllersMetadataArgsStorage)
-    (global as any).routingControllersMetadataArgsStorage = new MetadataArgsStorage();
+  if (!(globalThis as any).routingControllersMetadataArgsStorage)
+    (globalThis as any).routingControllersMetadataArgsStorage = new MetadataArgsStorage();
 
-  return (global as any).routingControllersMetadataArgsStorage;
+  return (globalThis as any).routingControllersMetadataArgsStorage;
 }
 
 /**
  * Registers all loaded actions in your express application.
  */
-export function useExpressServer<T>(expressServer: T, options?: RoutingControllersOptions): T {
+export async function useExpressServer<T>(expressServer: T, options?: RoutingControllersOptions): T {
   const driver = new ExpressDriver(expressServer);
-  return createServer(driver, options);
+  return await createServer(driver, options);
 }
 
 /**
  * Registers all loaded actions in your express application.
  */
-export function createExpressServer(options?: RoutingControllersOptions): any {
+export async function createExpressServer(options?: RoutingControllersOptions): any {
   const driver = new ExpressDriver();
-  return createServer(driver, options);
+  return await createServer(driver, options);
 }
 
 /**
  * Registers all loaded actions in your koa application.
  */
-export function useKoaServer<T>(koaApp: T, options?: RoutingControllersOptions): T {
+export async function useKoaServer<T>(koaApp: T, options?: RoutingControllersOptions): T {
   const driver = new KoaDriver(koaApp);
-  return createServer(driver, options);
+  return await createServer(driver, options);
 }
 
 /**
  * Registers all loaded actions in your koa application.
  */
-export function createKoaServer(options?: RoutingControllersOptions): any {
+export async function createKoaServer(options?: RoutingControllersOptions): any {
   const driver = new KoaDriver();
-  return createServer(driver, options);
+  return await createServer(driver, options);
 }
 
 /**
  * Registers all loaded actions in your application using selected driver.
  */
-export function createServer<T extends BaseDriver>(driver: T, options?: RoutingControllersOptions): any {
+export async function createServer<T extends BaseDriver>(driver: T, options?: RoutingControllersOptions): any {
   createExecutor(driver, options);
-  return driver.app;
+  return await driver.app;
 }
 
 /**
  * Registers all loaded actions in your express application.
  */
-export function createExecutor<T extends BaseDriver>(driver: T, options: RoutingControllersOptions = {}): void {
+export async function createExecutor<T extends BaseDriver>(driver: T, options: RoutingControllersOptions = {}): void {
   // import all controllers and middlewares and error handlers (new way)
   let controllerClasses: Function[];
   if (options && options.controllers && options.controllers.length) {
     controllerClasses = (options.controllers as any[]).filter(controller => controller instanceof Function);
     const controllerDirs = (options.controllers as any[]).filter(controller => typeof controller === 'string');
-    controllerClasses.push(...importClassesFromDirectories(controllerDirs));
+    controllerClasses.push(...await importClassesFromDirectories(controllerDirs));
   }
   let middlewareClasses: Function[];
   if (options && options.middlewares && options.middlewares.length) {
     middlewareClasses = (options.middlewares as any[]).filter(controller => controller instanceof Function);
     const middlewareDirs = (options.middlewares as any[]).filter(controller => typeof controller === 'string');
-    middlewareClasses.push(...importClassesFromDirectories(middlewareDirs));
+    middlewareClasses.push(...await importClassesFromDirectories(middlewareDirs));
   }
   let interceptorClasses: Function[];
   if (options && options.interceptors && options.interceptors.length) {
     interceptorClasses = (options.interceptors as any[]).filter(controller => controller instanceof Function);
     const interceptorDirs = (options.interceptors as any[]).filter(controller => typeof controller === 'string');
-    interceptorClasses.push(...importClassesFromDirectories(interceptorDirs));
+    interceptorClasses.push(...await importClassesFromDirectories(interceptorDirs));
   }
 
   if (options && options.development !== undefined) {
