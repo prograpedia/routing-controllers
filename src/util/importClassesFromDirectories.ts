@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 
 /**
@@ -28,7 +29,7 @@ export async function importClassesFromDirectories(directories: string[], format
       return formats.indexOf(path.extname(file)) !== -1 && dtsExtension !== '.d.ts';
     })
     .map(async file => {
-      return await import(file);
+      return await import('data:application/typescript;base64,' + btoa(fs.readFileSync(file, 'utf8')));
     }));
 
   return loadFileClasses(dirs, []);

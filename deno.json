@@ -1,5 +1,5 @@
 {
   "name": "@prograpedia/routing-controllers",
-  "version": "0.10.4-alpha",
+  "version": "0.10.4-alpha.1",
   "exports": "./src/index.ts"
 }
