@@ -23,8 +23,8 @@ export function Put(route?: string | RegExp, options?: HandlerOptions): Function
       type: 'put',
       target: object.constructor,
       method: methodName,
-      route: route,
-      options,
+      route: route!,
+      options: options!,
     });
   };
 }

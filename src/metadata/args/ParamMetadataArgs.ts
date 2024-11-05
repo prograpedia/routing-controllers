@@ -14,7 +14,7 @@ export interface ParamMetadataArgs {
   /**
    * Method on which's parameter is attached.
    */
-  method: string;
+  method: string | symbol;
 
   /**
    * Index (# number) of the parameter in the method signature.
@@ -39,7 +39,7 @@ export interface ParamMetadataArgs {
   /**
    * Indicates if this parameter is required or not
    */
-  required: boolean;
+  required?: boolean;
 
   /**
    * Transforms the value.

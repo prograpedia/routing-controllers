@@ -39,9 +39,9 @@ export class InterceptorMetadata {
 
   constructor(args: UseInterceptorMetadataArgs) {
     this.target = args.target;
-    this.method = args.method;
+    this.method = args.method!;
     this.interceptor = args.interceptor;
-    this.priority = args.priority;
-    this.global = args.global;
+    this.priority = args.priority!;
+    this.global = args.global!;
   }
 }

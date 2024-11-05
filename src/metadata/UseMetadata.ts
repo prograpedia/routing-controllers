@@ -34,7 +34,7 @@ export class UseMetadata {
 
   constructor(args: UseMetadataArgs) {
     this.target = args.target;
-    this.method = args.method;
+    this.method = args.method!;
     this.middleware = args.middleware;
     this.afterAction = args.afterAction;
   }

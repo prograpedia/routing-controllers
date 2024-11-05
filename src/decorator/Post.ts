@@ -23,8 +23,8 @@ export function Post(route?: string | RegExp, options?: HandlerOptions): Functio
       type: 'post',
       target: object.constructor,
       method: methodName,
-      options,
-      route,
+      options: options!,
+      route: route!,
     });
   };
 }

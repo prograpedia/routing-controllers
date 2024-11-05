@@ -14,6 +14,7 @@ import { AuthorizationRequiredError } from '../../error/AuthorizationRequiredErr
 import { HttpError, NotFoundError } from '../../index';
 import cookie from 'cookie';
 import templateUrl from 'template-url';
+import { Buffer } from "node:buffer";
 
 /**
  * Integration with koa framework.
@@ -228,7 +229,7 @@ export class KoaDriver extends BaseDriver {
   handleSuccess(result: any, action: ActionMetadata, options: Action): void {
     // if the action returned the context or the response object itself, short-circuits
     if (result && (result === options.response || result === options.context)) {
-      return options.next();
+      return options.next!();
     }
 
     // transform result if needed
@@ -286,7 +287,7 @@ export class KoaDriver extends BaseDriver {
       options.response.set(name, action.headers[name]);
     });
 
-    return options.next();
+    return options.next!();
   }
 
   /**

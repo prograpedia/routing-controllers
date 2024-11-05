@@ -13,7 +13,7 @@ export function HeaderParam(name: string, options?: ParamOptions): Function {
       method: methodName,
       index: index,
       name: name,
-      parse: options ? options.parse : false,
+      parse: options ? options.parse! : false,
       required: options ? options.required : undefined,
       classTransform: options ? options.transform : undefined,
       explicitType: options ? options.type : undefined,

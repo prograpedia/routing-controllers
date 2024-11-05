@@ -26,7 +26,7 @@ export class ParamMetadata {
   /**
    * Method on which's parameter is attached.
    */
-  method: string;
+  method: string | symbol;
 
   /**
    * Index (# number) of the parameter in the method signature.
@@ -108,14 +108,14 @@ export class ParamMetadata {
     this.actionMetadata = actionMetadata;
 
     this.target = args.object.constructor;
-    this.method = args.method;
+    this.method = args.method!;
     this.extraOptions = args.extraOptions;
     this.index = args.index;
     this.type = args.type;
-    this.name = args.name;
+    this.name = args.name!;
     this.parse = args.parse;
-    this.required = args.required;
-    this.transform = args.transform;
+    this.required = args.required!;
+    this.transform = args.transform!;
     this.classTransform = args.classTransform;
     this.validate = args.validate;
     this.isArray = args.isArray;

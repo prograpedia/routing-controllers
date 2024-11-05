@@ -26,17 +26,17 @@ export class ActionMetadata {
   /**
    * Action's parameters.
    */
-  params: ParamMetadata[];
+  params!: ParamMetadata[];
 
   /**
    * Action's use metadatas.
    */
-  uses: UseMetadata[];
+  uses!: UseMetadata[];
 
   /**
    * Action's use interceptors.
    */
-  interceptors: InterceptorMetadata[];
+  interceptors!: InterceptorMetadata[];
 
   /**
    * Class on which's method this action is attached.
@@ -51,7 +51,7 @@ export class ActionMetadata {
   /**
    * Action-specific options.
    */
-  options: HandlerOptions;
+  options!: HandlerOptions;
 
   /**
    * Action type represents http method used for the registered route. Can be one of the value defined in ActionTypes
@@ -62,72 +62,72 @@ export class ActionMetadata {
   /**
    * Route to be registered for the action.
    */
-  route: string | RegExp;
+  route!: string | RegExp;
 
   /**
    * Full route to this action (includes controller base route).
    */
-  fullRoute: string | RegExp;
+  fullRoute!: string | RegExp;
 
   /**
    * Indicates if this action uses Body.
    */
-  isBodyUsed: boolean;
+  isBodyUsed!: boolean;
 
   /**
    * Indicates if this action uses Uploaded File.
    */
-  isFileUsed: boolean;
+  isFileUsed!: boolean;
 
   /**
    * Indicates if this action uses Uploaded Files.
    */
-  isFilesUsed: boolean;
+  isFilesUsed!: boolean;
 
   /**
    * Indicates if controller of this action is json-typed.
    */
-  isJsonTyped: boolean;
+  isJsonTyped!: boolean;
 
   /**
    * Indicates if this action uses Authorized decorator.
    */
-  isAuthorizedUsed: boolean;
+  isAuthorizedUsed!: boolean;
 
   /**
    * Class-transformer options for the action response content.
    */
-  responseClassTransformOptions: ClassTransformOptions;
+  responseClassTransformOptions!: ClassTransformOptions;
 
   /**
    * Http code to be used on undefined action returned content.
    */
-  undefinedResultCode: number | Function;
+  undefinedResultCode!: number | Function;
 
   /**
    * Http code to be used on null action returned content.
    */
-  nullResultCode: number | Function;
+  nullResultCode!: number | Function;
 
   /**
    * Http code to be set on successful response.
    */
-  successHttpCode: number;
+  successHttpCode!: number;
 
   /**
    * Specifies redirection url for this action.
    */
-  redirect: string;
+  redirect!: string;
 
   /**
    * Rendered template to be used for this controller action.
    */
-  renderedTemplate: string;
+  renderedTemplate!: string;
 
   /**
    * Response headers to be set.
    */
-  headers: { [name: string]: any };
+  headers!: { [name: string]: any };
 
   /**
    * Extra options used by @Body decorator.
@@ -137,7 +137,7 @@ export class ActionMetadata {
   /**
    * Roles set by @Authorized decorator.
    */
-  authorizedRoles: any[];
+  authorizedRoles!: any[];
 
   /**
    * Params to be appended to the method call.

@@ -23,8 +23,8 @@ export function Get(route?: string | RegExp, options?: HandlerOptions): Function
       type: 'get',
       target: object.constructor,
       method: methodName,
-      options,
-      route,
+      options: options!,
+      route: route!,
     });
   };
 }

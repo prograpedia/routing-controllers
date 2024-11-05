@@ -23,8 +23,8 @@ export function Head(route?: string | RegExp, options?: HandlerOptions): Functio
       type: 'head',
       target: object.constructor,
       method: methodName,
-      options,
-      route,
+      options: options!,
+      route: route!,
     });
   };
 }

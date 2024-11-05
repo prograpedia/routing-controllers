@@ -24,8 +24,8 @@ export function Method(method: ActionType, route?: string | RegExp, options?: Ha
       type: method,
       target: object.constructor,
       method: methodName,
-      options,
-      route,
+      options: options!,
+      route: route!,
     });
   };
 }

@@ -12,7 +12,7 @@ export function Params(options?: ParamOptions): Function {
       object: object,
       method: methodName,
       index: index,
-      parse: options ? options.parse : false,
+      parse: options ? options.parse! : false,
       required: options ? options.required : undefined,
       classTransform: options ? options.transform : undefined,
       explicitType: options ? options.type : undefined,

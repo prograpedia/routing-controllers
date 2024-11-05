@@ -33,7 +33,7 @@ export function Authorized(roleOrRoles?: string | string[] | Function): Function
     getMetadataArgsStorage().responseHandlers.push({
       type: 'authorized',
       target: method ? clsOrObject.constructor : (clsOrObject as Function),
-      method: method,
+      method: method!,
       value: roleOrRoles,
     });
   };

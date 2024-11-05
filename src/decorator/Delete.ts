@@ -23,8 +23,8 @@ export function Delete(route?: string | RegExp, options?: HandlerOptions): Funct
       type: 'delete',
       target: object.constructor,
       method: methodName,
-      route: route,
-      options,
+      route: route!,
+      options: options!,
     });
   };
 }

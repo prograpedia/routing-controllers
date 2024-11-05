@@ -13,7 +13,7 @@ export function CookieParam(name: string, options?: ParamOptions): (object: Obje
       method: methodName,
       index: index,
       name: name,
-      parse: options ? options.parse : false,
+      parse: options ? options.parse! : false,
       required: options ? options.required : undefined,
       explicitType: options ? options.type : undefined,
       classTransform: options ? options.transform : undefined,

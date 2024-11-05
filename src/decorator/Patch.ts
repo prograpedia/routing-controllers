@@ -23,8 +23,8 @@ export function Patch(route?: string | RegExp, options?: HandlerOptions): Functi
       type: 'patch',
       target: object.constructor,
       method: methodName,
-      route: route,
-      options,
+      route: route!,
+      options: options!,
     });
   };
 }

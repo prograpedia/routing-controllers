@@ -14,8 +14,8 @@ export function Controller(baseRoute?: string, options?: ControllerOptions): Fun
     getMetadataArgsStorage().controllers.push({
       type: 'default',
       target: object,
-      route: baseRoute,
-      options,
+      route: baseRoute!,
+      options: options!,
     });
   };
 }

@@ -251,7 +251,7 @@ export class ExpressDriver extends BaseDriver {
   handleSuccess(result: any, action: ActionMetadata, options: Action): void {
     // if the action returned the response object itself, short-circuits
     if (result && result === options.response) {
-      options.next();
+      options.next!();
       return;
     }
 
@@ -292,20 +292,20 @@ export class ExpressDriver extends BaseDriver {
         options.response.redirect(action.redirect);
       }
 
-      options.next();
+      options.next!();
     } else if (action.renderedTemplate) {
       // if template is set then render it
       const renderOptions = result && result instanceof Object ? result : {};
 
       options.response.render(action.renderedTemplate, renderOptions, (err: any, html: string) => {
         if (err && action.isJsonTyped) {
-          return options.next(err);
+          return options.next!(err);
         } else if (err && !action.isJsonTyped) {
-          return options.next(err);
+          return options.next!(err);
         } else if (html) {
           options.response.send(html);
         }
-        options.next();
+        options.next!();
       });
     } else if (result === undefined) {
       // throw NotFoundError on undefined response
@@ -316,7 +316,7 @@ export class ExpressDriver extends BaseDriver {
         } else {
           options.response.send();
         }
-        options.next();
+        options.next!();
       } else {
         throw new NotFoundError();
       }
@@ -327,7 +327,7 @@ export class ExpressDriver extends BaseDriver {
       } else {
         options.response.send(null);
       }
-      options.next();
+      options.next!();
     } else if (result instanceof Buffer) {
       // check if it's binary data (Buffer)
       options.response.end(result, 'binary');
@@ -343,7 +343,7 @@ export class ExpressDriver extends BaseDriver {
       } else {
         options.response.send(result);
       }
-      options.next();
+      options.next!();
     }
   }
 
@@ -376,7 +376,7 @@ export class ExpressDriver extends BaseDriver {
         response.send(this.processTextError(error)); // todo: no need to do it because express by default does it
       }
     }
-    options.next(error);
+    options.next!(error);
   }
 
   // -------------------------------------------------------------------------

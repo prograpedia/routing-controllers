@@ -52,7 +52,7 @@ export interface IocAdapter {
  */
 export function useContainer(iocAdapter: IocAdapter, options?: UseContainerOptions) {
   userContainer = iocAdapter;
-  userContainerOptions = options;
+  userContainerOptions = options!;
 }
 
 /**

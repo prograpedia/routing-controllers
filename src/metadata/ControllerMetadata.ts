@@ -18,7 +18,7 @@ export class ControllerMetadata {
   /**
    * Controller actions.
    */
-  actions: ActionMetadata[];
+  actions!: ActionMetadata[];
 
   /**
    * Indicates object which is used by this controller.
@@ -43,22 +43,22 @@ export class ControllerMetadata {
   /**
    * Middleware "use"-s applied to a whole controller.
    */
-  uses: UseMetadata[];
+  uses!: UseMetadata[];
 
   /**
    * Middleware "use"-s applied to a whole controller.
    */
-  interceptors: InterceptorMetadata[];
+  interceptors!: InterceptorMetadata[];
 
   /**
    * Indicates if this action uses Authorized decorator.
    */
-  isAuthorizedUsed: boolean;
+  isAuthorizedUsed!: boolean;
 
   /**
    * Roles set by @Authorized decorator.
    */
-  authorizedRoles: any[];
+  authorizedRoles!: any[];
 
   // -------------------------------------------------------------------------
   // Constructor

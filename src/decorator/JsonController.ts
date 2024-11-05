@@ -13,8 +13,8 @@ export function JsonController(baseRoute?: string, options?: ControllerOptions):
     getMetadataArgsStorage().controllers.push({
       type: 'json',
       target: object,
-      route: baseRoute,
-      options,
+      route: baseRoute!,
+      options: options!,
     });
   };
 }

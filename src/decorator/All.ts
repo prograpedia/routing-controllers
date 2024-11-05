@@ -23,8 +23,8 @@ export function All(route?: string | RegExp, options?: ControllerOptions): Funct
       type: 'all',
       target: object.constructor,
       method: methodName,
-      route: route,
-      options,
+      route: route!,
+      options: options!,
     });
   };
 }
