@@ -1,5 +1,16 @@
 {
   "name": "@prograpedia/routing-controllers",
-  "version": "0.10.4-alpha.1",
-  "exports": "./src/index.ts"
+  "version": "0.10.4-alpha.2",
+  "exports": "./src/index.ts",
+  "compilerOptions": {
+    "experimentalDecorators": true
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["no-sloppy-imports"]
+    }
+  },
+  "unstable": [
+    "sloppy-imports"
+  ]
 }

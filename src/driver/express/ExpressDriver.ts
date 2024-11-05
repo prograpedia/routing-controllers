@@ -12,11 +12,9 @@ import { isPromiseLike } from '../../util/isPromiseLike';
 import { getFromContainer } from '../../container';
 import { AuthorizationRequiredError } from '../../error/AuthorizationRequiredError';
 import { NotFoundError, RoutingControllersOptions } from '../../index';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const cookie = require('cookie');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const templateUrl = require('template-url');
+import { Buffer } from 'node:buffer';
+import cookie from 'cookie';
+import templateUrl from 'template-url';
 
 /**
  * Integration with express framework.
@@ -28,7 +26,6 @@ export class ExpressDriver extends BaseDriver {
 
   constructor(public express?: any) {
     super();
-    this.loadExpress();
     this.app = this.express;
   }
 
@@ -389,7 +386,7 @@ export class ExpressDriver extends BaseDriver {
   /**
    * Creates middlewares from the given "use"-s.
    */
-  protected prepareMiddlewares(uses: UseMetadata[]) {
+  protected prepareMiddlewares(uses: UseMetadata[]): Function[] {
     const middlewareFunctions: Function[] = [];
     uses.forEach((use: UseMetadata) => {
       if (use.middleware.prototype && use.middleware.prototype.use) {
@@ -447,7 +444,7 @@ export class ExpressDriver extends BaseDriver {
   /**
    * Dynamically loads body-parser module.
    */
-  protected loadBodyParser() {
+  protected loadBodyParser(): any {
     try {
       return require('body-parser');
     } catch (e) {
@@ -458,7 +455,7 @@ export class ExpressDriver extends BaseDriver {
   /**
    * Dynamically loads multer module.
    */
-  protected loadMulter() {
+  protected loadMulter(): any {
     try {
       return require('multer');
     } catch (e) {

@@ -54,9 +54,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         middlewares: [FirstAfterMiddleware, SecondAfterMiddleware, ThirdAfterMiddleware],
-      }).listen(3001, done);
+      }).then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {
@@ -115,9 +115,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         middlewares: [SecondAfterMiddleware, ThirdAfterMiddleware, FirstAfterMiddleware],
-      }).listen(3001, done);
+      }).then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {

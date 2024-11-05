@@ -39,12 +39,14 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         authorizationChecker: async (action: Action, roles?: string[]) => {
           await sleep(10);
           return true;
         },
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done);
+      });
     });
 
     afterEach(done => {
@@ -99,11 +101,13 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         authorizationChecker: (action: Action, roles?: string[]) => {
           return true;
         },
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach(done => {
@@ -151,11 +155,13 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         authorizationChecker: (action: Action, roles?: string[]) => {
           return false;
         },
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach(done => {
@@ -194,11 +200,13 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         authorizationChecker: (action: Action, roles?: string[]) => {
           throw new NotAcceptableError('Custom Error');
         },
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach(done => {
@@ -231,11 +239,13 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         authorizationChecker: (action: Action, roles?: string[]) => {
           throw new NotAcceptableError('Custom Error');
         },
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach(done => {

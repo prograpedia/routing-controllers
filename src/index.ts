@@ -123,7 +123,8 @@ export async function useExpressServer<T>(expressServer: T, options?: RoutingCon
  * Registers all loaded actions in your express application.
  */
 export async function createExpressServer(options?: RoutingControllersOptions): Promise<any> {
-  const driver = new ExpressDriver();
+  const express = await import('express').then(mod => mod.default);
+  const driver = new ExpressDriver(express());
   return await createServer(driver, options);
 }
 
@@ -139,7 +140,9 @@ export async function useKoaServer<T>(koaApp: T, options?: RoutingControllersOpt
  * Registers all loaded actions in your koa application.
  */
 export async function createKoaServer(options?: RoutingControllersOptions): Promise<any> {
-  const driver = new KoaDriver();
+  const koa = await import('koa').then(mod => mod.default);
+  const router = await import('@koa/router').then(mod => mod.default);
+  const driver = new KoaDriver(new koa(), new router());
   return await createServer(driver, options);
 }
 
@@ -225,7 +228,7 @@ export async function createExecutor<T extends BaseDriver>(driver: T, options: R
 /**
  * Registers custom parameter decorator used in the controller actions.
  */
-export function createParamDecorator(options: CustomParameterDecorator) {
+export function createParamDecorator(options: CustomParameterDecorator): (object: Object, method: string, index: number) => void {
   return function (object: Object, method: string, index: number) {
     getMetadataArgsStorage().params.push({
       type: 'custom-converter',

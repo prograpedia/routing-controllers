@@ -47,9 +47,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         defaultErrorHandler: false,
-      }).listen(3001, done);
+      }).then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {

@@ -1,3 +1,4 @@
+import express, { Application as ExpressApplication } from 'express';
 import { createReadStream } from 'fs';
 import { Server as HttpServer } from 'http';
 import HttpStatusCodes from 'http-status-codes';
@@ -40,7 +41,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then((app: ExpressApplication) => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterAll((done: DoneCallback) => {

@@ -111,7 +111,7 @@ export abstract class BaseDriver {
     return result;
   }
 
-  protected processJsonError(error: any) {
+  protected processJsonError(error: any): any {
     if (!this.isDefaultErrorHandlingEnabled) return error;
 
     if (typeof error.toJSON === 'function') return error.toJSON();
@@ -145,7 +145,7 @@ export abstract class BaseDriver {
     return error;
   }
 
-  protected processTextError(error: any) {
+  protected processTextError(error: any): any {
     if (!this.isDefaultErrorHandlingEnabled) return error;
 
     if (error instanceof Error) {

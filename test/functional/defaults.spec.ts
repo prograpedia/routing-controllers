@@ -56,7 +56,7 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         defaults: {
           nullResultCode: defaultNullResultCode,
           undefinedResultCode: defaultUndefinedResultCode,
@@ -64,7 +64,7 @@ describe(``, () => {
             required: true,
           },
         },
-      }).listen(3001, done);
+      }).then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {

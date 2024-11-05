@@ -8,6 +8,7 @@
     "removeComments": true,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
+    "plugins": [{ "transform": "./import-meta" }]
   },
   "exclude": ["node_modules"]
 }

@@ -7,7 +7,11 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
-      {tsconfig: './tsconfig.spec.json'},
+      {
+        diagnostics: {
+          ignoreCodes: [1343, 2441]
+        },
+        tsconfig: './tsconfig.spec.json'},
     ],
   }
 };

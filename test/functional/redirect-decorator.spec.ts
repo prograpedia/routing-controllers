@@ -46,7 +46,7 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {

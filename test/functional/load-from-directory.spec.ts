@@ -13,12 +13,14 @@ describe(``, () => {
   describe('loading all controllers from the given directories', () => {
     beforeAll((done: DoneCallback) => {
       getMetadataArgsStorage().reset();
-      expressServer = createExpressServer({
+      createExpressServer({
         controllers: [
           __dirname + '/../fakes/global-options/first-controllers/**/*{.js,.ts}',
           __dirname + '/../fakes/global-options/second-controllers/*{.js,.ts}',
         ],
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterAll((done: DoneCallback) => {
@@ -75,9 +77,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         middlewares: [__dirname + '/../fakes/global-options/express-middlewares/**/*{.js,.ts}'],
-      }).listen(3001, done);
+      }).then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {

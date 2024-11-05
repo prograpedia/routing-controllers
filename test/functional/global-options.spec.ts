@@ -44,10 +44,10 @@ describe(``, () => {
           }
         }
 
-        expressServer = createExpressServer({
+        createExpressServer({
           controllers: [TestUserController],
           validation: false,
-        }).listen(3001, done);
+        }).then(app => {expressServer = app.listen(3001, done)});
       });
 
       afterEach((done: DoneCallback) => {
@@ -79,11 +79,11 @@ describe(``, () => {
           }
         }
 
-        expressServer = createExpressServer({
+        createExpressServer({
           controllers: [TestUserController],
           classTransformer: true,
           validation: false,
-        }).listen(3001, done);
+        }).then(app => {expressServer = app.listen(3001, done)});
       });
 
       afterEach((done: DoneCallback) => {
@@ -115,11 +115,11 @@ describe(``, () => {
           }
         }
 
-        expressServer = createExpressServer({
+       createExpressServer({
           controllers: [TestUserController],
           classTransformer: false,
           validation: false,
-        }).listen(3001, done);
+        }).then(app => {expressServer = app.listen(3001, done)});
       });
 
       afterEach((done: DoneCallback) => {
@@ -151,11 +151,11 @@ describe(``, () => {
           }
         }
 
-        expressServer = createExpressServer({
+        createExpressServer({
           controllers: [TestUserController],
           routePrefix: 'api',
           validation: false,
-        }).listen(3001, done);
+        }).then(app => {expressServer = app.listen(3001, done)});
       });
 
       afterEach((done: DoneCallback) => {

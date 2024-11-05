@@ -56,9 +56,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         validation: false,
-      }).listen(3001, done);
+      }).then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterEach((done: DoneCallback) => {
@@ -117,7 +117,7 @@ describe(``, () => {
           },
         };
 
-        expressServer = createExpressServer(options).listen(3001, done);
+        createExpressServer(options).then(app => {expressServer = app.listen(3001, done)});
       });
 
       afterEach(done => {
@@ -164,7 +164,9 @@ describe(``, () => {
           validation: true,
         };
 
-        expressServer = createExpressServer(options).listen(3001, done);
+        createExpressServer(options).then(app => {
+          expressServer = app.listen(3001, done)
+        });
       });
 
       afterEach(done => {
@@ -237,9 +239,11 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer({
+      createExpressServer({
         validation: false,
-      }).listen(3001, done);
+      }).then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach((done: DoneCallback) => {

@@ -1,15 +1,13 @@
 {
   "name": "routing-controllers",
   "private": false,
-  "version": "0.10.4-alpha.1",
+  "version": "0.10.4-alpha.2",
+  "type": "module",
   "description": "Create structured, declarative and beautifully organized class-based controllers with heavy decorators usage for Express / Koa using TypeScript.",
   "author": "TypeStack contributors",
   "license": "MIT",
   "sideEffects": false,
   "main": "./cjs/index.js",
-  "module": "./esm2015/index.js",
-  "es2015": "./esm2015/index.js",
-  "typings": "./types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/typestack/routing-controllers.git"
@@ -26,7 +24,7 @@
   "scripts": {
     "build": "npm run build:cjs",
     "build:clean": "rimraf build",
-    "build:es2015": "tsc --project tsconfig.prod.esm2015.json",
+    "build:esm": "tsc --project tsconfig.prod.esm.json",
     "build:cjs": "tsc --project tsconfig.prod.cjs.json",
     "build:types": "tsc --project tsconfig.prod.types.json",
     "prettier:fix": "prettier --write \"**/*.{ts,md}\"",
@@ -36,10 +34,11 @@
     "test": "jest --verbose --runInBand",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand --no-cache --coverage --verbose",
-    "test:debug": "NODE_ENV= node --inspect=0.0.0.0:20001 ./node_modules/.bin/jest --colors --runInBand --no-coverage --watch"
+    "test:debug": "NODE_ENV= node --inspect=0.0.0.0:20001 ./node_modules/.bin/jest --colors --runInBand --no-coverage --watch",
+    "prepare": "ts-patch install -s"
   },
   "dependencies": {
-    "cookie": "^0.6.0",
+    "cookie": "^0.7.0",
     "glob": "^11.0.0",
     "reflect-metadata": "^0.2.2",
     "template-url": "^1.0.0"
@@ -71,7 +70,7 @@
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.8.3",
-    "form-data": "^4.0.0",
+    "form-data": "^4.0.1",
     "handlebars": "^4.7.8",
     "http-status-codes": "^2.3.0",
     "husky": "^9.1.6",
@@ -88,6 +87,7 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "ts-patch": "^3.2.1",
     "tslint": "^6.1.2",
     "typedi": "^0.10.0",
     "typescript": "^5.5.3"
@@ -101,5 +101,12 @@
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
     "multer": "^1.4.5-lts.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js",
+      "types": "./types/index.d.ts"
+    }
   }
 }

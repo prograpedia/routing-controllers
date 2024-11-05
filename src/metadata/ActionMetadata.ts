@@ -175,7 +175,7 @@ export class ActionMetadata {
   /**
    * Appends base route to a given regexp route.
    */
-  static appendBaseRoute(baseRoute: string, route: RegExp | string) {
+  static appendBaseRoute(baseRoute: string, route: RegExp | string): string | RegExp {
     const prefix = `${baseRoute.length > 0 && baseRoute.indexOf('/') < 0 ? '/' : ''}${baseRoute}`;
     if (typeof route === 'string') return `${prefix}${route}`;
 
@@ -246,7 +246,7 @@ export class ActionMetadata {
    * Calls action method.
    * Action method is an action defined in a user controller.
    */
-  callMethod(params: any[], action: Action) {
+  callMethod(params: any[], action: Action): any {
     const controllerInstance = this.controllerMetadata.getInstance(action);
     // eslint-disable-next-line prefer-spread
     return controllerInstance[this.method].apply(controllerInstance, params);

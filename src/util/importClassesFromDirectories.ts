@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 /**
  * Loads all exported classes from the given directory.
@@ -20,7 +20,7 @@ export async function importClassesFromDirectories(directories: string[], format
 
   const allFiles = directories.reduce((allDirs, dir) => {
     // Replace \ with / for glob
-    return allDirs.concat(require('glob').sync(path.normalize(dir).replace(/\\/g, '/')));
+    return allDirs.concat(glob.sync(path.normalize(dir).replace(/\\/g, '/')));
   }, [] as string[]);
 
   const dirs = await Promise.all(allFiles
@@ -29,7 +29,9 @@ export async function importClassesFromDirectories(directories: string[], format
       return formats.indexOf(path.extname(file)) !== -1 && dtsExtension !== '.d.ts';
     })
     .map(async file => {
-      return await import('data:application/typescript;base64,' + btoa(fs.readFileSync(file, 'utf8')));
+      // const mimetype = file.endsWith('.js') ? 'application/javascript' : 'application/typescript';
+      // return await import(`data:${mimetype},` + encodeURIComponent(fs.readFileSync(file, 'utf8')));
+      return await import(file);
     }));
 
   return loadFileClasses(dirs, []);

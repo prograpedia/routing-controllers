@@ -66,7 +66,7 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterEach((done: DoneCallback) => {
@@ -174,7 +174,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach((done: DoneCallback) => {
@@ -295,7 +297,9 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach((done: DoneCallback) => {
@@ -431,7 +435,9 @@ describe(``, () => {
       }
 
       // fakeContainer.services['TestContainerController'] = new TestContainerController(questionRepository, postRepository);
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then(app => {
+        expressServer = app.listen(3001, done)
+      });
     });
 
     afterEach((done: DoneCallback) => {

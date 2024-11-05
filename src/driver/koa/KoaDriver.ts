@@ -12,11 +12,8 @@ import { getFromContainer } from '../../container';
 import { RoleChecker } from '../../RoleChecker';
 import { AuthorizationRequiredError } from '../../error/AuthorizationRequiredError';
 import { HttpError, NotFoundError } from '../../index';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const cookie = require('cookie');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const templateUrl = require('template-url');
+import cookie from 'cookie';
+import templateUrl from 'template-url';
 
 /**
  * Integration with koa framework.
@@ -31,8 +28,6 @@ export class KoaDriver extends BaseDriver {
     public router?: any
   ) {
     super();
-    this.loadKoa();
-    this.loadRouter();
     this.app = this.koa;
   }
 
@@ -297,7 +292,7 @@ export class KoaDriver extends BaseDriver {
   /**
    * Handles result of failed executed controller action.
    */
-  handleError(error: any, action: ActionMetadata | undefined, options: Action) {
+  handleError(error: any, action: ActionMetadata | undefined, options: Action): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       if (this.isDefaultErrorHandlingEnabled) {
         // apply http headers
@@ -334,7 +329,7 @@ export class KoaDriver extends BaseDriver {
   /**
    * Creates middlewares from the given "use"-s.
    */
-  protected prepareMiddlewares(uses: UseMetadata[]) {
+  protected prepareMiddlewares(uses: UseMetadata[]): Function[] {
     const middlewareFunctions: Function[] = [];
     uses.forEach(use => {
       if (use.middleware.prototype && use.middleware.prototype.use) {

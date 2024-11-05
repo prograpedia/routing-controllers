@@ -54,7 +54,7 @@ describe(``, () => {
         }
       }
 
-      expressServer = createExpressServer().listen(3001, done);
+      createExpressServer().then(app => {expressServer = app.listen(3001, done)});
     });
 
     afterAll((done: DoneCallback) => {
@@ -65,7 +65,7 @@ describe(``, () => {
       expect.assertions(3);
       try {
         await axios.get('/answers');
-      } catch (error) {
+      } catch (error: any) {
         expect(errorHandlerCalled).toBeTruthy();
         expect(errorHandlerName).toEqual('CustomError');
         expect(error.response.status).toEqual(HttpStatusCodes.INTERNAL_SERVER_ERROR);

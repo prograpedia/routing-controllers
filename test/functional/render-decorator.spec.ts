@@ -40,12 +40,13 @@ describe(``, () => {
       }
 
       const resourcePath: string = path.resolve(__dirname, '../resources');
-      const expressApplication: ExpressApplication = createExpressServer();
-      expressApplication.engine('html', mustacheExpress());
-      expressApplication.set('view engine', 'html');
-      expressApplication.set('views', resourcePath);
-      expressApplication.use(express.static(resourcePath));
-      expressServer = expressApplication.listen(3001, done);
+      createExpressServer().then((expressApplication: ExpressApplication) => {
+        expressApplication.engine('html', mustacheExpress());
+        expressApplication.set('view engine', 'html');
+        expressApplication.set('views', resourcePath);
+        expressApplication.use(express.static(resourcePath));
+        expressServer = expressApplication.listen(3001, done);
+      });
     });
 
     afterAll((done: DoneCallback) => {

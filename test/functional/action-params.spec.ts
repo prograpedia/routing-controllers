@@ -452,12 +452,14 @@ describe(``, () => {
       }
     }
 
-    expressServer = createExpressServer({
+    createExpressServer({
       cors: {
         origin: 'http://localhost:3001',
         credentials: true,
       },
-    }).listen(3001, done);
+    }).then(app => {
+      expressServer = app.listen(3001, done)
+    });
   });
 
   afterAll((done: DoneCallback) => {
