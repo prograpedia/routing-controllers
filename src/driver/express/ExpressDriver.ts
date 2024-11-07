@@ -103,7 +103,7 @@ export class ExpressDriver extends BaseDriver {
    * Registers action in the driver.
    */
   registerAction(actionMetadata: ActionMetadata, executeCallback: (options: Action) => any): void {
-    // middlewares requireModuled for this action
+    // middlewares required for this action
     const defaultMiddlewares: any[] = [];
 
     if (actionMetadata.isBodyUsed) {
@@ -437,7 +437,7 @@ export class ExpressDriver extends BaseDriver {
    * Dynamically loads express module.
    */
   protected loadExpress(): void {
-    if (require) {
+    if (requireModule) {
       if (!this.express) {
         try {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -447,7 +447,7 @@ export class ExpressDriver extends BaseDriver {
         }
       }
     } else {
-      throw new Error('Cannot load express. Try to install all requireModuled dependencies.');
+      throw new Error('Cannot load express. Try to install all required dependencies.');
     }
   }
 

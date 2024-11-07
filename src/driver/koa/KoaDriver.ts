@@ -15,7 +15,7 @@ import { HttpError, NotFoundError } from '../../index';
 import cookie from 'cookie';
 import templateUrl from 'template-url';
 import { Buffer } from "node:buffer";
-import Module, { createRequire } from 'node:module';
+import Module from 'node:module';
 // @ts-ignore
 const resolveFilename = Module._resolveFilename;
 // @ts-ignore
@@ -23,7 +23,7 @@ Module._resolveFilename = (request, parent, isMain, options) => {
   if (request.startsWith("npm:")) return resolveFilename(request.split('@')[0].replace('npm:', ''), parent, isMain, options);
   return resolveFilename(request, parent, isMain, options);
 };
-const requireModule = createRequire(import.meta.url);
+const requireModule = Module.createRequire(import.meta.url);
 
 /**
  * Integration with koa framework.
@@ -80,7 +80,7 @@ export class KoaDriver extends BaseDriver {
    * Registers action in the driver.
    */
   registerAction(actionMetadata: ActionMetadata, executeCallback: (options: Action) => any): void {
-    // middlewares requireModuled for this action
+    // middlewares required for this action
     const defaultMiddlewares: any[] = [];
 
     if (actionMetadata.isAuthorizedUsed) {
@@ -378,7 +378,7 @@ export class KoaDriver extends BaseDriver {
         }
       }
     } else {
-      throw new Error('Cannot load koa. Try to install all requireModuled dependencies.');
+      throw new Error('Cannot load koa. Try to install all required dependencies.');
     }
   }
 
@@ -386,7 +386,7 @@ export class KoaDriver extends BaseDriver {
    * Dynamically loads @koa/router module.
    */
   private loadRouter() {
-    if (require) {
+    if (requireModule) {
       if (!this.router) {
         try {
           this.router = new (require('@koa/router'))();
@@ -397,7 +397,7 @@ export class KoaDriver extends BaseDriver {
         }
       }
     } else {
-      throw new Error('Cannot load koa. Try to install all requireModuled dependencies.');
+      throw new Error('Cannot load koa. Try to install all required dependencies.');
     }
   }
 
