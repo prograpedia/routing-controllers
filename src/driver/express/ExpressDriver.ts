@@ -15,9 +15,15 @@ import { NotFoundError, RoutingControllersOptions } from '../../index';
 import { Buffer } from 'node:buffer';
 import cookie from 'cookie';
 import templateUrl from 'template-url';
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
+import Module from 'node:module';
+// @ts-ignore
+const resolveFilename = Module._resolveFilename;
+// @ts-ignore
+Module._resolveFilename = (request, parent, isMain, options) => {
+  if (request.startsWith("npm:")) return resolveFilename(request.split('@')[0].replace('npm:', ''), parent, isMain, options);
+  return resolveFilename(request, parent, isMain, options);
+};
+const requireModule = Module.createRequire(import.meta.url);
 
 /**
  * Integration with express framework.
@@ -43,7 +49,7 @@ export class ExpressDriver extends BaseDriver {
   initialize() {
     if (this.cors) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const cors = require('cors');
+      const cors = requireModule('cors');
       if (this.cors === true) {
         this.express.use(cors());
       } else {
@@ -97,7 +103,7 @@ export class ExpressDriver extends BaseDriver {
    * Registers action in the driver.
    */
   registerAction(actionMetadata: ActionMetadata, executeCallback: (options: Action) => any): void {
-    // middlewares required for this action
+    // middlewares requireModuled for this action
     const defaultMiddlewares: any[] = [];
 
     if (actionMetadata.isBodyUsed) {
@@ -430,18 +436,18 @@ export class ExpressDriver extends BaseDriver {
   /**
    * Dynamically loads express module.
    */
-  protected loadExpress() {
+  protected loadExpress(): void {
     if (require) {
       if (!this.express) {
         try {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
-          this.express = require('express')();
+          this.express = requireModule('express')();
         } catch (e) {
           throw new Error('express package was not found installed. Try to install it: npm install express --save');
         }
       }
     } else {
-      throw new Error('Cannot load express. Try to install all required dependencies.');
+      throw new Error('Cannot load express. Try to install all requireModuled dependencies.');
     }
   }
 
@@ -450,7 +456,7 @@ export class ExpressDriver extends BaseDriver {
    */
   protected loadBodyParser(): any {
     try {
-      return require('body-parser');
+      return requireModule('body-parser');
     } catch (e) {
       throw new Error('body-parser package was not found installed. Try to install it: npm install body-parser --save');
     }
@@ -461,7 +467,7 @@ export class ExpressDriver extends BaseDriver {
    */
   protected loadMulter(): any {
     try {
-      return require('multer');
+      return requireModule('multer');
     } catch (e) {
       throw new Error('multer package was not found installed. Try to install it: npm install multer --save');
     }

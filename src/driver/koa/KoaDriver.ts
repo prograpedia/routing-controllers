@@ -15,9 +15,15 @@ import { HttpError, NotFoundError } from '../../index';
 import cookie from 'cookie';
 import templateUrl from 'template-url';
 import { Buffer } from "node:buffer";
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
+import Module, { createRequire } from 'node:module';
+// @ts-ignore
+const resolveFilename = Module._resolveFilename;
+// @ts-ignore
+Module._resolveFilename = (request, parent, isMain, options) => {
+  if (request.startsWith("npm:")) return resolveFilename(request.split('@')[0].replace('npm:', ''), parent, isMain, options);
+  return resolveFilename(request, parent, isMain, options);
+};
+const requireModule = createRequire(import.meta.url);
 
 /**
  * Integration with koa framework.
@@ -46,11 +52,11 @@ export class KoaDriver extends BaseDriver {
    */
   initialize() {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const bodyParser = require('koa-bodyparser');
+    const bodyParser = requireModule('koa-bodyparser');
     this.koa.use(bodyParser());
     if (this.cors) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const cors = require('@koa/cors');
+      const cors = requireModule('@koa/cors');
       if (this.cors === true) {
         this.koa.use(cors());
       } else {
@@ -74,7 +80,7 @@ export class KoaDriver extends BaseDriver {
    * Registers action in the driver.
    */
   registerAction(actionMetadata: ActionMetadata, executeCallback: (options: Action) => any): void {
-    // middlewares required for this action
+    // middlewares requireModuled for this action
     const defaultMiddlewares: any[] = [];
 
     if (actionMetadata.isAuthorizedUsed) {
@@ -372,7 +378,7 @@ export class KoaDriver extends BaseDriver {
         }
       }
     } else {
-      throw new Error('Cannot load koa. Try to install all required dependencies.');
+      throw new Error('Cannot load koa. Try to install all requireModuled dependencies.');
     }
   }
 
@@ -391,7 +397,7 @@ export class KoaDriver extends BaseDriver {
         }
       }
     } else {
-      throw new Error('Cannot load koa. Try to install all required dependencies.');
+      throw new Error('Cannot load koa. Try to install all requireModuled dependencies.');
     }
   }
 
@@ -400,7 +406,7 @@ export class KoaDriver extends BaseDriver {
    */
   private loadMulter() {
     try {
-      return require('@koa/multer');
+      return requireModule('@koa/multer');
     } catch (e) {
       throw new Error('@koa/multer package was not found installed. Try to install it: npm install @koa/multer --save');
     }

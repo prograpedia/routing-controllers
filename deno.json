@@ -1,6 +1,6 @@
 {
   "name": "@prograpedia/routing-controllers",
-  "version": "0.10.4-alpha.7",
+  "version": "0.10.4-alpha.8",
   "exports": "./src/index.ts",
   "imports": {
     "express": "npm:express@^4.21.1",
