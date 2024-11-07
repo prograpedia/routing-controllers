@@ -123,8 +123,7 @@ export async function useExpressServer<T>(expressServer: T, options?: RoutingCon
  * Registers all loaded actions in your express application.
  */
 export async function createExpressServer(options?: RoutingControllersOptions): Promise<any> {
-  const express = await import('express').then(mod => mod.default);
-  const driver = new ExpressDriver(express());
+  const driver = new ExpressDriver();
   return await createServer(driver, options);
 }
 
@@ -140,9 +139,7 @@ export async function useKoaServer<T>(koaApp: T, options?: RoutingControllersOpt
  * Registers all loaded actions in your koa application.
  */
 export async function createKoaServer(options?: RoutingControllersOptions): Promise<any> {
-  const koa = await import('koa').then(mod => mod.default);
-  const router = await import('@koa/router').then(mod => mod.default);
-  const driver = new KoaDriver(new koa(), new router());
+  const driver = new KoaDriver();
   return await createServer(driver, options);
 }
 
@@ -150,8 +147,8 @@ export async function createKoaServer(options?: RoutingControllersOptions): Prom
  * Registers all loaded actions in your application using selected driver.
  */
 export async function createServer<T extends BaseDriver>(driver: T, options?: RoutingControllersOptions): Promise<any> {
-  createExecutor(driver, options);
-  return await driver.app;
+  await createExecutor(driver, options);
+  return driver.app;
 }
 
 /**

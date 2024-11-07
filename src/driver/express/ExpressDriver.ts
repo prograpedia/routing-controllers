@@ -15,6 +15,9 @@ import { NotFoundError, RoutingControllersOptions } from '../../index';
 import { Buffer } from 'node:buffer';
 import cookie from 'cookie';
 import templateUrl from 'template-url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 /**
  * Integration with express framework.
@@ -26,6 +29,7 @@ export class ExpressDriver extends BaseDriver {
 
   constructor(public express?: any) {
     super();
+    this.loadExpress();
     this.app = this.express;
   }
 

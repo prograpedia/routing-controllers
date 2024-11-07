@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - deno-v0.10.4-alpha.4
+      - deno-v0.10.4-alpha.5
 
 jobs:
   publish:

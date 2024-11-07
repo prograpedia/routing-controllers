@@ -15,6 +15,9 @@ import { HttpError, NotFoundError } from '../../index';
 import cookie from 'cookie';
 import templateUrl from 'template-url';
 import { Buffer } from "node:buffer";
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 /**
  * Integration with koa framework.
@@ -29,6 +32,8 @@ export class KoaDriver extends BaseDriver {
     public router?: any
   ) {
     super();
+    this.loadKoa();
+    this.loadRouter();
     this.app = this.koa;
   }
 
